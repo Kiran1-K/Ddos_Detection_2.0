@@ -1,10 +1,10 @@
 results_csv: static\results\detection_results.csv
 error_plot: results\error_hist.png
 attack_summary: static\results\attack_summary.txt
-n_anomalies: 39
+n_anomalies: 58
 total_samples: 150
-anomaly_percent: 26.0
-threshold: 4.925334904506554
+anomaly_percent: 38.666666666666664
+threshold: 4.752753600921322
 is_ddos: True
 attack_type: Generic DDoS
 confidence: 0.566766

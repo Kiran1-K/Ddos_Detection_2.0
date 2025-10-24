@@ -1,9 +1,264 @@
 {% extends "base.html" %}
 {% block content %}
   <div class="text-center">
-    <h1 class="mb-4">🚀 Anomaly-based DDoS Detection</h1>
-    <p class="lead">Upload network traffic datasets, train an Autoencoder, and detect anomalies.</p>
-    <a href="{{ url_for('train') }}" class="btn btn-primary btn-lg">Train Model</a>
-    <a href="{{ url_for('detect') }}" class="btn btn-success btn-lg">Run Detection</a>
+    <!-- Hero Section with Gradient Background -->
+    <div class="hero-container mb-5">
+      <div class="floating-particles"></div>
+      <h1 class="mb-4 hero-title">
+        <span class="rocket-icon">🚀</span>
+        <span class="gradient-text">Anomaly-based DDoS Detection</span>
+      </h1>
+      <p class="lead hero-subtitle">Upload network traffic datasets, train an Autoencoder, and detect anomalies.</p>
+    </div>
+
+    <!-- Action Buttons with Enhanced Styling -->
+    <div class="button-container">
+      <a href="{{ url_for('train') }}" class="btn btn-primary btn-lg custom-btn train-btn">
+        <span class="btn-icon">🧠</span>
+        <span class="btn-text">Train Model</span>
+        <span class="btn-shimmer"></span>
+      </a>
+      <a href="{{ url_for('detect') }}" class="btn btn-success btn-lg custom-btn detect-btn">
+        <span class="btn-icon">🔍</span>
+        <span class="btn-text">Run Detection</span>
+        <span class="btn-shimmer"></span>
+      </a>
+    </div>
+
+    <!-- Feature Cards -->
+    <div class="features-grid mt-5">
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Smart Analysis</h3>
+        <p>Advanced ML algorithms for precise detection</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Real-time</h3>
+        <p>Instant anomaly detection and alerts</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🛡️</div>
+        <h3>Secure</h3>
+        <p>Enterprise-grade security protection</p>
+      </div>
+    </div>
   </div>
+
+  <style>
+    /* Hero Section Styling */
+    .hero-container {
+      position: relative;
+      padding: 60px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+      overflow: hidden;
+    }
+
+    .floating-particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+      animation: float 15s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .hero-title {
+      position: relative;
+      z-index: 1;
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .rocket-icon {
+      display: inline-block;
+      animation: rocket 2s ease-in-out infinite;
+      font-size: 3.5rem;
+    }
+
+    @keyframes rocket {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .gradient-text {
+      background: linear-gradient(45deg, #fff, #f0f0f0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      position: relative;
+      z-index: 1;
+      color: rgba(255, 255, 255, 0.95);
+      font-size: 1.3rem;
+      font-weight: 300;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Button Container */
+    .button-container {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    /* Custom Button Styling */
+    .custom-btn {
+      position: relative;
+      padding: 18px 45px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 50px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      min-width: 220px;
+    }
+
+    .custom-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .custom-btn:active {
+      transform: translateY(-1px);
+    }
+
+    .train-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .train-btn:hover {
+      background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    }
+
+    .detect-btn {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+
+    .detect-btn:hover {
+      background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
+    }
+
+    .btn-icon {
+      font-size: 1.5rem;
+      margin-right: 10px;
+      display: inline-block;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .btn-text {
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-shimmer {
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s;
+    }
+
+    .custom-btn:hover .btn-shimmer {
+      left: 100%;
+    }
+
+    /* Feature Cards */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .feature-card {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      padding: 35px 25px;
+      border-radius: 15px;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .feature-card h3 {
+      color: #333;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      color: #666;
+      font-size: 0.95rem;
+      margin: 0;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .rocket-icon {
+        font-size: 2.5rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.1rem;
+      }
+
+      .custom-btn {
+        min-width: 180px;
+        padding: 15px 35px;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 {% endblock %}

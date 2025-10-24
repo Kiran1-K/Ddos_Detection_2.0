@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>🛡️ Upload Mixed Traffic Dataset (for detection)</h2>
+  <form method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+      <input type="file" name="testdata" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-danger">Run Detection</button>
+  </form>
+{% endblock %}

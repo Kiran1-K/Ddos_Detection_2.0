@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="text-center">
+    <h1 class="mb-4">🚀 Anomaly-based DDoS Detection</h1>
+    <p class="lead">Upload network traffic datasets, train an Autoencoder, and detect anomalies.</p>
+    <a href="{{ url_for('train') }}" class="btn btn-primary btn-lg">Train Model</a>
+    <a href="{{ url_for('detect') }}" class="btn btn-success btn-lg">Run Detection</a>
+  </div>
+{% endblock %}
