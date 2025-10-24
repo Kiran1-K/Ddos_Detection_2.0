@@ -1,0 +1,6 @@
+=== DDoS Attack Detection Summary ===
+
+[!] DETECTED: Generic DDoS (Confidence: 56.7%)
+
+Attack Indicators:
+- High Packet Rate: 6667.66 pkt/s (Confidence: 56.7%)

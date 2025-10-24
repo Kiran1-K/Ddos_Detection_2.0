@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>📊 Detection Results</h2>
+
+<!-- DDoS Attack Status -->
+{% if detect_info and 'is_ddos' in detect_info %}
+<div class="card p-3 mb-4 shadow-sm {% if detect_info.is_ddos %}border-danger{% else %}border-success{% endif %}">
+    <h4>
+        {% if detect_info.is_ddos %}
+        🚨 DDoS Attack Detected!
+        <span class="badge bg-danger">{{ detect_info.attack_type }}</span>
+        {% else %}
+        ✅ No DDoS Attack Detected
+        <span class="badge bg-success">Normal Traffic</span>
+        {% endif %}
+    </h4>
+    
+    {% if detect_info.is_ddos %}
+    <div class="mt-3">
+        <h5>Attack Details:</h5>
+        <p><strong>Attack Type:</strong> {{ detect_info.attack_type }}</p>
+        <p><strong>Confidence:</strong> {{ "%.1f"|format(detect_info.confidence * 100) }}%</p>
+        
+        {% if 'indicators' in detect_info and detect_info.indicators %}
+        <h6>Attack Indicators:</h6>
+        <ul class="list-group">
+            {% for indicator in detect_info.indicators %}
+            <li class="list-group-item">
+                <strong>{{ indicator.name }}:</strong> {{ indicator.value }}
+                <span class="badge bg-warning float-end">
+                    {{ "%.1f"|format(indicator.confidence * 100) }}% confidence
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endif %}
+
+<!-- Anomaly Summary -->
+{% if detect_info and 'n_anomalies' in detect_info %}
+<div class="card p-3 mb-4 shadow-sm">
+    <h5>📊 Anomaly Detection Summary</h5>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card {% if detect_info.n_anomalies > 0 %}bg-light-warning{% else %}bg-light-success{% endif %} p-3">
+                <h6>Total Samples Analyzed</h6>
+                <h3>{{ detect_info.total_samples }}</h3>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card {% if detect_info.n_anomalies > 0 %}bg-light-danger{% else %}bg-light-success{% endif %} p-3">
+                <h6>Anomalies Detected</h6>
+                <h3>{{ detect_info.n_anomalies }}</h3>
+            </div>
+        </div>
+    </div>
+    {% if detect_info.anomaly_percent is defined %}
+    <div class="mt-3">
+        <div class="progress" style="height: 25px;">
+            <div class="progress-bar bg-{% if detect_info.anomaly_percent > 5 %}danger{% else %}success{% endif %}" 
+                 role="progressbar" 
+                 style="width: {{ detect_info.anomaly_percent }}%" 
+                 aria-valuenow="{{ detect_info.anomaly_percent }}" 
+                 aria-valuemin="0" 
+                 aria-valuemax="100">
+                {{ "%.1f"|format(detect_info.anomaly_percent) }}%
+            </div>
+        </div>
+        <small class="text-muted">Percentage of traffic identified as anomalous</small>
+    </div>
+    {% endif %}
+</div>
+{% endif %}
+
+<!-- Visualization Section -->
+<div class="row">
+    <!-- Error Histogram -->
+    {% if error_hist_file %}
+    <div class="col-md-6 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">📊 Reconstruction Error Distribution</h5>
+                <p class="card-text">Shows the distribution of reconstruction errors. The red dashed line indicates the anomaly threshold.</p>
+                <img src="{{ url_for('static', filename=error_hist_file) }}" class="img-fluid rounded" alt="Error Histogram">
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Time Series Plot -->
+    {% if time_series_plot %}
+    <div class="col-md-6 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">⏱️ Traffic Analysis</h5>
+                <p class="card-text">Shows traffic patterns and detected anomalies over time.</p>
+                <img src="{{ url_for('static', filename=time_series_plot) }}" class="img-fluid rounded" alt="Time Series Analysis">
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Detailed Results -->
+{% if csv_file %}
+<div class="card p-3 mb-4 shadow-sm">
+    <div class="d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">📥 Download Results</h5>
+        <a href="{{ url_for('download_results') }}" class="btn btn-primary">
+            <i class="bi bi-download"></i> Download Full Results (CSV)
+        </a>
+    </div>
+    <p class="text-muted mt-2">The CSV file contains detailed detection results for each packet/flow.</p>
+</div>
+{% endif %}
+
+<!-- Raw Summary -->
+{% if summary_text %}
+<div class="card p-3 shadow-sm">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h5 class="mb-0">🔍 Detailed Detection Log</h5>
+        <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#rawLog" aria-expanded="false" aria-controls="rawLog">
+            Toggle Details
+        </button>
+    </div>
+    <div class="collapse" id="rawLog">
+        <pre class="bg-light p-3 rounded">{{ summary_text }}</pre>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
